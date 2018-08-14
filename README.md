@@ -37,7 +37,7 @@ Add following repository and dependency to your project's POM
 <dependency>
     <groupId>com.groupdocs</groupId>
     <artifactId>groupdocs-signature-cloud</artifactId>
-    <version>18.5</version>
+    <version>18.8</version>
     <scope>compile</scope>
 </dependency>
 ```
@@ -50,7 +50,7 @@ At first generate the JAR by executing:
 
 Then manually install the following JARs:
 
-* target/groupdocs-signature-cloud-18.5.jar
+* target/groupdocs-signature-cloud-18.8.jar
 * target/lib/*.jar
 
 ## Getting Started

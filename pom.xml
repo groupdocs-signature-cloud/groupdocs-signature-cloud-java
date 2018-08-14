@@ -5,7 +5,7 @@
     <artifactId>groupdocs-signature-cloud</artifactId>
     <packaging>jar</packaging>
     <name>groupdocs-signature-cloud</name>
-    <version>18.5</version>
+    <version>18.8</version>
     <url>https://github.com/groupdocs-signature-cloud/groupdocs-signature-cloud-java</url>
     <description>Java library for communicating with the GroupDocs.Signature Cloud API</description>
     <scm>
@@ -91,57 +91,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-            <!-- attach test jar -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.2</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>jar</goal>
-                            <goal>test-jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <version>1.10</version>
-                <executions>
-                    <execution>
-                        <id>add_sources</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>add-source</goal>
-                        </goals>
-                        <configuration>
-                            <sources>
-                                <source>
-                                src/main/java</source>
-                            </sources>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>add_test_sources</id>
-                        <phase>generate-test-sources</phase>
-                        <goals>
-                            <goal>add-test-source</goal>
-                        </goals>
-                        <configuration>
-                            <sources>
-                                <source>
-                                src/test/java</source>
-                            </sources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -154,8 +103,8 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
+            </plugin>  
+             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
                 <version>2.2.1</version>
@@ -167,15 +116,37 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-        </plugins>
-    </build>
+            </plugin>            
+        </plugins>  
+    </build>        
 
     <profiles>
         <profile>
-            <id>sign-artifacts</id>
-            <build>
+            <id>deploy-qa</id>
+            <build>                
                 <plugins>
+                    <plugin>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>1.8</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <configuration>
+                                    <tasks>                         
+                                      <exec
+                                        dir="${project.basedir}"
+                                        executable="powershell"
+                                        failonerror="true">
+                                        <arg line="-Command &quot;(Get-Content simplified-pom.template) | ForEach-Object { $_ -replace &quot;{{VERSION}}&quot;, &quot;${project.version}&quot; } | Set-Content simplified-pom.xml&quot;" />
+                                      </exec>
+                                    </tasks>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
@@ -189,10 +160,129 @@
                                 </goals>
                             </execution>
                         </executions>
+                        <configuration>
+                          <skip>true</skip>
+                          <file>${project.build.directory}/${project.build.finalName}.jar</file>
+                        </configuration>
                     </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-deploy-plugin</artifactId>
+                        <version>2.8.2</version>
+                        <executions>
+                          <execution>
+                              <id>default-deploy</id>
+                              <phase>none</phase>
+                          </execution>
+                          <execution>
+                            <id>deploy-file</id>
+                            <phase>deploy</phase>
+                            <goals>
+                              <goal>deploy-file</goal>
+                            </goals>
+                            <configuration>
+                              <repositoryId>Groupdocs-Cloud-QA</repositoryId>
+                              <url>http://artifact-qa.groupdocs.cloud/repo</url>
+                              <file>target/groupdocs-signature-cloud-${project.version}.jar</file>
+                              <javadoc>target/groupdocs-signature-cloud-${project.version}-javadoc.jar</javadoc>                              
+                              <pomFile>simplified-pom.xml</pomFile>
+                              <packaging>${project.packaging}</packaging>
+                            </configuration>
+                          </execution>
+                        </executions>
+                      </plugin>
                 </plugins>
             </build>
-        </profile>
+            <distributionManagement>
+              <repository>
+                <id>Groupdocs-Cloud-QA</id>
+                <name>artifactory-cloud-qa</name>
+                <url>http://artifact-qa.groupdocs.cloud/repo</url>
+              </repository>
+            </distributionManagement>
+        </profile>  
+        
+        <profile>
+            <id>deploy-prod</id>
+            <build>                
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>1.8</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <configuration>
+                                    <tasks>                         
+                                      <exec
+                                        dir="${project.basedir}"
+                                        executable="powershell"
+                                        failonerror="true">
+                                        <arg line="-Command &quot;(Get-Content simplified-pom.template) | ForEach-Object { $_ -replace &quot;{{VERSION}}&quot;, &quot;${project.version}&quot; } | Set-Content simplified-pom.xml&quot;" />
+                                      </exec>
+                                    </tasks>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.5</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                          <skip>true</skip>
+                          <file>${project.build.directory}/${project.build.finalName}.jar</file>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-deploy-plugin</artifactId>
+                        <version>2.8.2</version>
+                        <executions>
+                          <execution>
+                              <id>default-deploy</id>
+                              <phase>none</phase>
+                          </execution>
+                          <execution>
+                            <id>deploy-file</id>
+                            <phase>deploy</phase>
+                            <goals>
+                              <goal>deploy-file</goal>
+                            </goals>
+                            <configuration>
+                              <repositoryId>Groupdocs-Cloud-PROD</repositoryId>
+                              <url>http://artifact.groupdocs.cloud/repo</url>
+                              <file>target/groupdocs-signature-cloud-${project.version}.jar</file>
+                              <javadoc>target/groupdocs-signature-cloud-${project.version}-javadoc.jar</javadoc>                              
+                              <pomFile>simplified-pom.xml</pomFile>
+                              <packaging>${project.packaging}</packaging>
+                            </configuration>
+                          </execution>
+                        </executions>
+                      </plugin>
+                </plugins>
+            </build>
+            <distributionManagement>
+              <repository>
+                <id>Groupdocs-Cloud-PROD</id>
+                <name>artifactory-cloud-prod</name>
+                <url>http://artifact.groupdocs.cloud/repo</url>
+              </repository>
+            </distributionManagement>
+        </profile>     
+           
     </profiles>
 
     <dependencies>
