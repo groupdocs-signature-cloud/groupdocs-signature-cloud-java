@@ -44,7 +44,7 @@ public class TestFiles {
         Certificates = getFiles(CertificatesPath,".pfx","certificates");
 
         SignedCellsDocs = getFiles(SignedPath,".xlsx", "signed");
-        SignedImagesDocs = getFiles(SignedPath,".jpg", "signed");
+        SignedImagesDocs = getFiles(SignedPath,".png", "signed");
         SignedPdfDocs = getFiles(SignedPath,".pdf", "signed");
         SignedSlidesDocs = getFiles(SignedPath,".pptx", "signed");
         SignedWordsDocs = getFiles(SignedPath,".docx", "signed");

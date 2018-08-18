@@ -28,7 +28,7 @@ public class VerificationTextApiTests extends BaseApiTest {
             request.setFolder(file.getFolder());
             request.setStorage(null);
             VerifiedDocumentResponse response = signatureApi.postVerificationText(request);
-            AssertVerificationRespose(file, response);
+            AssertVerificationResponse(file, response);
         }        
     }
 
@@ -51,7 +51,7 @@ public class VerificationTextApiTests extends BaseApiTest {
             request.setFolder(file.getFolder());
             request.setStorage(null);
             VerifiedDocumentResponse response = signatureApi.postVerificationText(request);
-            AssertVerificationRespose(file,response);
+            AssertVerificationResponse(file,response);
         }
     }
 
@@ -73,7 +73,7 @@ public class VerificationTextApiTests extends BaseApiTest {
             request.setFolder(file.getFolder());
             request.setStorage(null);
             VerifiedDocumentResponse response = signatureApi.postVerificationText(request);
-            AssertVerificationRespose(file,response);
+            AssertVerificationResponse(file,response);
         }
     }
 
@@ -95,7 +95,7 @@ public class VerificationTextApiTests extends BaseApiTest {
             request.setFolder(file.getFolder());
             request.setStorage(null);
             VerifiedDocumentResponse response = signatureApi.postVerificationText(request);
-            AssertVerificationRespose(file,response);
+            AssertVerificationResponse(file,response);
         }
     }
 

@@ -32,7 +32,7 @@ public class SignatureImageApiTests extends BaseApiTest {
             request.setFolder(file.getFolder());
             request.setStorage(null);
             SignatureDocumentResponse response = signatureApi.postImage(request);
-            AssertSignatureRespose(file,response);
+            AssertSignatureResponse(file,response);
         }        
     }
 
@@ -53,7 +53,7 @@ public class SignatureImageApiTests extends BaseApiTest {
             request.setFolder(file.getFolder());
             request.setStorage(null);
             SignatureDocumentResponse response = signatureApi.postImage(request);
-            AssertSignatureRespose(file,response);
+            AssertSignatureResponse(file,response);
         }
     }
 
@@ -74,7 +74,7 @@ public class SignatureImageApiTests extends BaseApiTest {
             request.setFolder(file.getFolder());
             request.setStorage(null);
             SignatureDocumentResponse response = signatureApi.postImage(request);
-            AssertSignatureRespose(file,response);
+            AssertSignatureResponse(file,response);
         }
     }
 
@@ -96,7 +96,7 @@ public class SignatureImageApiTests extends BaseApiTest {
             request.setFolder(file.getFolder());
             request.setStorage(null);
             SignatureDocumentResponse response = signatureApi.postImage(request);
-            AssertSignatureRespose(file,response);
+            AssertSignatureResponse(file,response);
         }
     }
 
@@ -118,44 +118,7 @@ public class SignatureImageApiTests extends BaseApiTest {
             request.setFolder(file.getFolder());
             request.setStorage(null);
             SignatureDocumentResponse response = signatureApi.postImage(request);
-            AssertSignatureRespose(file,response);
+            AssertSignatureResponse(file,response);
         }
-    }
-
-    private void ComposeSignImageOptionsData(SignImageOptionsData signOptionsData){
-        // SignOptionsData
-        signOptionsData.setDocumentPageNumber(1);
-        PagesSetupData pagesSetup = GetPagesSetup();
-        signOptionsData.setPagesSetup(pagesSetup);
-        // SignImageOptionsData
-        TestFile image = TestFiles.Images.get(0);
-        signOptionsData.setImageGuid(image.getPath());
-        signOptionsData.setSignAllPages(false);
-        
-        // Location properties
-        signOptionsData.setTop(100);        
-        signOptionsData.setLeft(100);
-        // Size properties
-        signOptionsData.setWidth(200);
-        signOptionsData.setHeight(100);        
-        
-        signOptionsData.setSizeMeasureType(SignImageOptionsData.SizeMeasureTypeEnum.PIXELS);
-        // Location properties
-        signOptionsData.setTop(100);
-        signOptionsData.setLeft(100);
-        signOptionsData.setLocationMeasureType(SignImageOptionsData.LocationMeasureTypeEnum.PIXELS);
-        signOptionsData.setSizeMeasureType(SignImageOptionsData.SizeMeasureTypeEnum.PIXELS);
-        signOptionsData.setMarginMeasureType(SignImageOptionsData.MarginMeasureTypeEnum.PIXELS);
-        // Alignment properties
-        signOptionsData.setHorizontalAlignment(SignImageOptionsData.HorizontalAlignmentEnum.LEFT);
-        signOptionsData.setVerticalAlignment(SignImageOptionsData.VerticalAlignmentEnum.CENTER);
-        
-        signOptionsData.setMarginMeasureType(SignImageOptionsData.MarginMeasureTypeEnum.PIXELS);       
-        // Margin
-        PaddingData margin = GetMargin(10);
-        signOptionsData.setMargin(margin);
-        //
-        signOptionsData.setOpacity(0.9);        
-        signOptionsData.setRotationAngle(45);        
-    }
+    }    
 }

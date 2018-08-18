@@ -28,7 +28,7 @@ public class VerificationDigitalApiTests extends BaseApiTest {
             request.setFolder(file.getFolder());
             request.setStorage(null);
             VerifiedDocumentResponse response = signatureApi.postVerificationDigital(request);
-            AssertVerificationRespose(file, response);
+            AssertVerificationResponse(file, response);
         }        
     }
 
@@ -50,7 +50,7 @@ public class VerificationDigitalApiTests extends BaseApiTest {
             request.setFolder(file.getFolder());
             request.setStorage(null);
             VerifiedDocumentResponse response = signatureApi.postVerificationDigital(request);
-            AssertVerificationRespose(file,response);
+            AssertVerificationResponse(file,response);
         }
     }
 
@@ -73,19 +73,7 @@ public class VerificationDigitalApiTests extends BaseApiTest {
             request.setFolder(file.getFolder());
             request.setStorage(null);
             VerifiedDocumentResponse response = signatureApi.postVerificationDigital(request);
-            AssertVerificationRespose(file,response);
+            AssertVerificationResponse(file,response);
         }
     }
-
-    private void ComposeVerifyDigitalOptionsData(VerifyDigitalOptionsData verifyOptionsData){
-        // VerifyOptionsData
-        verifyOptionsData.setDocumentPageNumber(1);
-        PagesSetupData pagesSetup = GetPagesSetup();
-        verifyOptionsData.setPagesSetup(pagesSetup);
-        // VerifyDigitalOptionsData
-        verifyOptionsData.setPassword(CommonPassword);    
-        TestFile certificate = TestFiles.Certificates.get(0);
-        String fileName = certificate.getPath();
-        verifyOptionsData.setCertificateGuid(fileName);
-    }    
 }

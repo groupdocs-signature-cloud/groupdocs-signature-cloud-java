@@ -33,7 +33,7 @@ public class SignatureBarcodeApiTests extends BaseApiTest {
             request.setFolder(file.getFolder());
             request.setStorage(null);
             SignatureDocumentResponse response = signatureApi.postBarcode(request);
-            AssertSignatureRespose(file, response);
+            AssertSignatureResponse(file, response);
         }        
     }
 
@@ -54,7 +54,7 @@ public class SignatureBarcodeApiTests extends BaseApiTest {
             request.setFolder(file.getFolder());
             request.setStorage(null);
             SignatureDocumentResponse response = signatureApi.postBarcode(request);
-            AssertSignatureRespose(file, response);
+            AssertSignatureResponse(file, response);
         }
     }
 
@@ -78,7 +78,7 @@ public class SignatureBarcodeApiTests extends BaseApiTest {
             request.setFolder(file.getFolder());
             request.setStorage(null);
             SignatureDocumentResponse response = signatureApi.postBarcode(request);
-            AssertSignatureRespose(file,response);
+            AssertSignatureResponse(file,response);
         }
     }
 
@@ -100,7 +100,7 @@ public class SignatureBarcodeApiTests extends BaseApiTest {
             request.setFolder(file.getFolder());
             request.setStorage(null);
             SignatureDocumentResponse response = signatureApi.postBarcode(request);
-            AssertSignatureRespose(file,response);
+            AssertSignatureResponse(file,response);
         }
     }
 
@@ -122,52 +122,7 @@ public class SignatureBarcodeApiTests extends BaseApiTest {
             request.setFolder(file.getFolder());
             request.setStorage(null);
             SignatureDocumentResponse response = signatureApi.postBarcode(request);
-            AssertSignatureRespose(file,response);
+            AssertSignatureResponse(file,response);
         }
     }
-
-    private void ComposeSignBarcodeOptionsData(SignBarcodeOptionsData signOptionsData){
-        // SignOptionsData
-        signOptionsData.setDocumentPageNumber(1);
-        PagesSetupData pagesSetup = GetPagesSetup();
-        signOptionsData.setPagesSetup(pagesSetup);
-        // SignBarcodeOptionsData
-        signOptionsData.setText(CommonBarCodeText);        
-        signOptionsData.setSignAllPages(false);
-        // Size properties
-        signOptionsData.setWidth(200);
-        signOptionsData.setHeight(100);
-        signOptionsData.setSizeMeasureType(SignBarcodeOptionsData.SizeMeasureTypeEnum.PIXELS);
-        // Location properties
-        signOptionsData.setTop(100);
-        signOptionsData.setLeft(100);
-        signOptionsData.setLocationMeasureType(SignBarcodeOptionsData.LocationMeasureTypeEnum.PIXELS);
-        signOptionsData.setSizeMeasureType(SignBarcodeOptionsData.SizeMeasureTypeEnum.PIXELS);
-        signOptionsData.setMarginMeasureType(SignBarcodeOptionsData.MarginMeasureTypeEnum.PIXELS);
-        // Alignment properties
-        signOptionsData.setHorizontalAlignment(SignBarcodeOptionsData.HorizontalAlignmentEnum.LEFT);
-        signOptionsData.setVerticalAlignment(SignBarcodeOptionsData.VerticalAlignmentEnum.CENTER);
-        //signOptionsData.setMargin(new PaddingData { All(5 });
-        signOptionsData.setMarginMeasureType(SignBarcodeOptionsData.MarginMeasureTypeEnum.PIXELS);
-        //Appearance properties
-        Color clrBack = Color.AliceBlue;
-        signOptionsData.setBackgroundColor(clrBack);
-        Color clrBrdr = Color.BlanchedAlmond;
-        signOptionsData.setBorderColor(clrBrdr);
-        Color clrFore = Color.DarkRed;
-        signOptionsData.setForeColor(clrFore);
-        signOptionsData.setFont(new SignatureFontData());
-        //
-        BrushData brushData = GetBrushData(1);
-        signOptionsData.setBackgroundBrush(brushData);
-        //
-        signOptionsData.setBarcodeTypeName(CommonBarcodeTypeName);
-        signOptionsData.setBorderVisiblity(true);
-        signOptionsData.setBorderDashStyle(SignBarcodeOptionsData.BorderDashStyleEnum.DASHLONGDASHDOT);
-        signOptionsData.setBorderWeight(1.5);
-        signOptionsData.setOpacity(0.9);      
-        // Margin
-        PaddingData margin = GetMargin(2);
-        signOptionsData.setInnerMargins(margin);
-    }    
 }

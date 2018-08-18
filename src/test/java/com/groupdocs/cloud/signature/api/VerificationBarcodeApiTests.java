@@ -28,7 +28,7 @@ public class VerificationBarcodeApiTests extends BaseApiTest {
             request.setFolder(file.getFolder());
             request.setStorage(null);
             VerifiedDocumentResponse response = signatureApi.postVerificationBarcode(request);
-            AssertVerificationRespose(file, response);
+            AssertVerificationResponse(file, response);
         }        
     }
 
@@ -49,7 +49,7 @@ public class VerificationBarcodeApiTests extends BaseApiTest {
             request.setFolder(file.getFolder());
             request.setStorage(null);
             VerifiedDocumentResponse response = signatureApi.postVerificationBarcode(request);
-            AssertVerificationRespose(file, response);
+            AssertVerificationResponse(file, response);
         }        
     }
 
@@ -71,7 +71,7 @@ public class VerificationBarcodeApiTests extends BaseApiTest {
             request.setFolder(file.getFolder());
             request.setStorage(null);
             VerifiedDocumentResponse response = signatureApi.postVerificationBarcode(request);
-            AssertVerificationRespose(file,response);
+            AssertVerificationResponse(file,response);
         }
     }
 
@@ -93,7 +93,7 @@ public class VerificationBarcodeApiTests extends BaseApiTest {
             request.setFolder(file.getFolder());
             request.setStorage(null);
             VerifiedDocumentResponse response = signatureApi.postVerificationBarcode(request);
-            AssertVerificationRespose(file,response);
+            AssertVerificationResponse(file,response);
         }
     }
 
@@ -115,17 +115,7 @@ public class VerificationBarcodeApiTests extends BaseApiTest {
             request.setFolder(file.getFolder());
             request.setStorage(null);
             VerifiedDocumentResponse response = signatureApi.postVerificationBarcode(request);
-            AssertVerificationRespose(file,response);
+            AssertVerificationResponse(file,response);
         }
     }
-
-    private void ComposeVerifyBarcodeOptionsData(VerifyBarcodeOptionsData verifyOptionsData){
-        // VerifyOptionsData
-        verifyOptionsData.setDocumentPageNumber(1);
-        PagesSetupData pagesSetup = GetPagesSetup();
-        verifyOptionsData.setPagesSetup(pagesSetup);
-        // VerifyBarcodeOptionsData
-        verifyOptionsData.setText(CommonText);        
-        verifyOptionsData.setVerifyAllPages(false);
-    }    
 }

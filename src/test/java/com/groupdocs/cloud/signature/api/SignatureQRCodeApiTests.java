@@ -33,7 +33,7 @@ public class SignatureQRCodeApiTests extends BaseApiTest {
             request.setFolder(file.getFolder());
             request.setStorage(null);
             SignatureDocumentResponse response = signatureApi.postQRCode(request);
-            AssertSignatureRespose(file, response);
+            AssertSignatureResponse(file, response);
         }        
     }
 
@@ -54,7 +54,7 @@ public class SignatureQRCodeApiTests extends BaseApiTest {
             request.setFolder(file.getFolder());
             request.setStorage(null);
             SignatureDocumentResponse response = signatureApi.postQRCode(request);
-            AssertSignatureRespose(file, response);
+            AssertSignatureResponse(file, response);
         }
     }
 
@@ -78,7 +78,7 @@ public class SignatureQRCodeApiTests extends BaseApiTest {
             request.setFolder(file.getFolder());
             request.setStorage(null);
             SignatureDocumentResponse response = signatureApi.postQRCode(request);
-            AssertSignatureRespose(file,response);
+            AssertSignatureResponse(file,response);
         }
     }
 
@@ -100,7 +100,7 @@ public class SignatureQRCodeApiTests extends BaseApiTest {
             request.setFolder(file.getFolder());
             request.setStorage(null);
             SignatureDocumentResponse response = signatureApi.postQRCode(request);
-            AssertSignatureRespose(file,response);
+            AssertSignatureResponse(file,response);
         }
     }
 
@@ -122,52 +122,7 @@ public class SignatureQRCodeApiTests extends BaseApiTest {
             request.setFolder(file.getFolder());
             request.setStorage(null);
             SignatureDocumentResponse response = signatureApi.postQRCode(request);
-            AssertSignatureRespose(file,response);
+            AssertSignatureResponse(file,response);
         }
     }
-
-    private void ComposeSignQRCodeOptionsData(SignQRCodeOptionsData signOptionsData){
-        // SignOptionsData
-        signOptionsData.setDocumentPageNumber(1);
-        PagesSetupData pagesSetup = GetPagesSetup();
-        signOptionsData.setPagesSetup(pagesSetup);
-        // SignQRCodeOptionsData
-        signOptionsData.setText(CommonQrCodeText);        
-        signOptionsData.setSignAllPages(false);
-        // Size properties
-        signOptionsData.setWidth(200);
-        signOptionsData.setHeight(100);
-        signOptionsData.setSizeMeasureType(SignQRCodeOptionsData.SizeMeasureTypeEnum.PIXELS);
-        // Location properties
-        signOptionsData.setTop(100);
-        signOptionsData.setLeft(100);
-        signOptionsData.setLocationMeasureType(SignQRCodeOptionsData.LocationMeasureTypeEnum.PIXELS);
-        signOptionsData.setSizeMeasureType(SignQRCodeOptionsData.SizeMeasureTypeEnum.PIXELS);
-        signOptionsData.setMarginMeasureType(SignQRCodeOptionsData.MarginMeasureTypeEnum.PIXELS);
-        // Alignment properties
-        signOptionsData.setHorizontalAlignment(SignQRCodeOptionsData.HorizontalAlignmentEnum.LEFT);
-        signOptionsData.setVerticalAlignment(SignQRCodeOptionsData.VerticalAlignmentEnum.CENTER);
-        //signOptionsData.setMargin(new PaddingData { All(5 });
-        signOptionsData.setMarginMeasureType(SignQRCodeOptionsData.MarginMeasureTypeEnum.PIXELS);
-        //Appearance properties
-        Color clrBack = GetColor("#BCBCBC");
-        signOptionsData.setBackgroundColor(clrBack);
-        Color clrBrdr = GetColor("#OCOCOC");
-        signOptionsData.setBorderColor(clrBrdr);
-        Color clrFore = GetColor("#FFFFFF");
-        signOptionsData.setForeColor(clrFore);
-        signOptionsData.setFont(new SignatureFontData());
-        //
-        BrushData brushData = GetBrushData(1);
-        signOptionsData.setBackgroundBrush(brushData);
-        //
-        signOptionsData.setQrCodeTypeName(CommonQrCodeTypeName);
-        signOptionsData.setBorderVisiblity(true);
-        signOptionsData.setBorderDashStyle(SignQRCodeOptionsData.BorderDashStyleEnum.DASHLONGDASHDOT);
-        signOptionsData.setBorderWeight(1.5);
-        signOptionsData.setOpacity(0.9);      
-        // Margin
-        PaddingData margin = GetMargin(2);
-        signOptionsData.setInnerMargins(margin);
-    }    
 }

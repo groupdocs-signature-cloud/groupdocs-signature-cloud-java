@@ -28,9 +28,15 @@ import org.junit.runners.Suite.SuiteClasses;
     VerificationTextApiTests.class,
     VerificationBarcodeApiTests.class,
     VerificationQRCodeApiTests.class,
-    VerificationDigitalApiTests.class    
+    VerificationDigitalApiTests.class,
     // Search
-    
+    SearchDigitalApiTests.class,
+    SearchBarcodeApiTests.class,
+    SearchQRCodeApiTests.class,
+    // Collections
+    SignatureCollectionApiTests.class,
+    VerifyCollectionApiTests.class,
+    SearchCollectionApiTests.class    
 })
 public class TestSetup {
     
