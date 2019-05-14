@@ -1,7 +1,7 @@
 /**
  * --------------------------------------------------------------------------------------------------------------------
  * <copyright company="Aspose Pty Ltd" file="ApiClient.java">
- *   Copyright (c) 2003-2018 Aspose Pty Ltd
+ *   Copyright (c) 2003-2019 Aspose Pty Ltd
  * </copyright>
  * <summary>
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -62,12 +62,13 @@ import java.util.regex.Pattern;
 
 import com.groupdocs.cloud.signature.client.auth.Authentication;
 import com.groupdocs.cloud.signature.client.auth.OAuth;
-import com.groupdocs.cloud.signature.model.*;
+import com.groupdocs.cloud.signature.model.ApiError;
+import com.groupdocs.cloud.signature.model.AuthError;
 
 public class ApiClient {
     private Configuration configuration = null;
 
-    private String basePath = null;
+    private String serverUrl = null;
     private boolean debugging = false;
     private Map<String, String> defaultHeaderMap = new HashMap<String, String>();
     private String tempFolderPath = null;
@@ -75,12 +76,9 @@ public class ApiClient {
     private Map<String, Authentication> authentications;
 
     private DateFormat dateFormat;
-    private DateFormat datetimeFormat;
-    private boolean lenientDatetimeFormat;
-    private int dateLength;
-
     private InputStream sslCaCert;
     private boolean verifyingSsl;
+    
     private KeyManager[] keyManagers;
 
     private OkHttpClient httpClient;
@@ -93,45 +91,47 @@ public class ApiClient {
      */
     public ApiClient(Configuration configuration) {
         this.configuration = configuration;
-        this.basePath = configuration.getBasePath();
-
+        this.serverUrl = configuration.getServerUrl();
         this.httpClient = new OkHttpClient();
-
-
         this.verifyingSsl = true;
-
         this.json = new JSON();
 
         // Set default User-Agent.
-        setUserAgent("Swagger-Codegen/18.8/java");
+        setUserAgent("java-sdk/19.5");
+
+        // Set connection timeout
+        setConnectTimeout(configuration.getTimeout());
+        
+        // Set read timeout
+        setReadTimeout(configuration.getTimeout());
 
         // Setup authentications (key: authentication name, value: authentication).
         this.authentications = new HashMap<String, Authentication>();
-        String tokenUrl = configuration.getBasePath().replace(configuration.getContextPath(), "");
+
         String appSid = configuration.getAppSid();
         String appKey = configuration.getAppKey();
-        this.authentications.put("oauth", new OAuth(tokenUrl, appSid, appKey));
+        this.authentications.put("JWT", new OAuth(configuration, appSid, appKey));
         // Prevent the authentications from being modified.
         this.authentications = Collections.unmodifiableMap(authentications);
     }
 
     /**
-     * Get base path
+     * Get server URL, default value is https://api.groupdocs.cloud/v2.0
      *
-     * @return Base path
+     * @return Server URL
      */
-    public String getBasePath() {
-        return basePath;
+    public String getServerUrl() {
+        return serverUrl;
     }
 
     /**
-     * Set base path
+     * Set server URL
      *
-     * @param basePath Base path of the URL (e.g https://localhost/v1
+     * @param serverUrl Server URL
      * @return An instance of OkHttpClient
      */
-    public ApiClient setBasePath(String basePath) {
-        this.basePath = basePath;
+    public ApiClient setServerUrl(String serverUrl) {
+        this.serverUrl = serverUrl;
         return this;
     }
 
@@ -661,10 +661,8 @@ public class ApiClient {
             return (T) respBody;
         } else {
             throw new ApiException(
-                    "Content type \"" + contentType + "\" is not supported for type: " + returnType,
-                    response.code(),
-                    response.headers().toMultimap(),
-                    respBody);
+                "Content type \"" + contentType + "\" is not supported for type: " + returnType,
+                response.code());
         }
     }
 
@@ -687,19 +685,6 @@ public class ApiClient {
         } else if (isJsonMime(contentType)) {
             String content;
             if (obj != null) {
-                String objClassName = obj.getClass().getSimpleName();
-                if (obj instanceof SignOptionsData) {
-                    SignOptionsData options = (SignOptionsData)obj;
-                    options.setOptionsType(objClassName);
-                }
-                if (obj instanceof VerifyOptionsData) {
-                    VerifyOptionsData options = (VerifyOptionsData)obj;
-                    options.setOptionsType(objClassName);
-                }
-                if (obj instanceof SearchOptionsData) {
-                    SearchOptionsData options = (SearchOptionsData)obj;
-                    options.setOptionsType(objClassName);
-                }                
                 content = json.serialize(obj);
             } else {
                 content = null;
@@ -866,7 +851,7 @@ public class ApiClient {
                     try {
                         response.body().close();
                     } catch (IOException e) {
-                        throw new ApiException(response.message(), e, response.code(), response.headers().toMultimap());
+                        throw new ApiException(response.message(), response.code());
                     }
                 }
                 return null;
@@ -874,20 +859,37 @@ public class ApiClient {
                 return deserialize(response, returnType);
             }
         } else {
-            String respBody = null;
-            ApiError apiError = null;
             if (response.body() != null) {
+                String respBody;
+    
                 try {
-                    apiError = deserialize(response, ApiError.class);
-                } catch (ApiException e) {
-                    throw new ApiException(response.message(), e, response.code(), response.headers().toMultimap());
+                  respBody = response.body().string();
+                } catch (Exception e) {
+                  throw new ApiException(response.message(), response.code());
                 }
-
-                if(apiError != null && apiError.getError() != null){
-                    throw new ApiException(apiError.getError().getMessage(), response.code(), response.headers().toMultimap(), respBody);
-                }            
-            }
-            throw new ApiException(response.message(), response.code(), response.headers().toMultimap(), respBody);
+    
+                ApiError apiError = null;
+                try {
+                  apiError = json.deserialize(respBody, ApiError.class);
+                } catch (Exception e) {
+                  //NOTE: ignore
+                }
+                if(apiError != null && apiError.getError() != null) {
+                  throw new ApiException(apiError.getError().getMessage(), response.code());
+                }   
+                
+                AuthError authError = null;
+                try {
+                  authError = json.deserialize(respBody, AuthError.class);
+                } catch (Exception e) {
+                  //NOTE: ignore
+                }
+                if(authError != null && authError.getErrorMessage() != null) {
+                  throw new ApiException(authError.getErrorMessage(), response.code());
+                }
+              }
+    
+              throw new ApiException(response.message(), response.code());
         }
     }
 
@@ -981,7 +983,7 @@ public class ApiClient {
      */
     public String buildUrl(String path, List<Pair> queryParams, List<Pair> collectionQueryParams) {
         final StringBuilder url = new StringBuilder();
-        url.append(basePath).append(path);
+        url.append(serverUrl).append(path);
 
         if (queryParams != null && !queryParams.isEmpty()) {
             // support (constant) query string in `path`, e.g. "/posts?draft=1"

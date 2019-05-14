@@ -1,4 +1,4 @@
-package com.groupdocs.cloud.viewer.api;
+package com.groupdocs.cloud.signature.api;
 
 public class Config {
     /*
@@ -7,5 +7,5 @@ public class Config {
      */
     public static String AppSID = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX";
     public static String AppKey = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
-    public static String BasePath = "http://api.groupdocs.cloud/v1";
+    public static String ApiBaseUrl = "https://api.groupdocs.cloud";
 }

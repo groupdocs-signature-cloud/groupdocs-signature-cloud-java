@@ -37,7 +37,7 @@ Add following repository and dependency to your project's POM
 <dependency>
     <groupId>com.groupdocs</groupId>
     <artifactId>groupdocs-signature-cloud</artifactId>
-    <version>18.8</version>
+    <version>19.5</version>
     <scope>compile</scope>
 </dependency>
 ```
@@ -50,7 +50,7 @@ At first generate the JAR by executing:
 
 Then manually install the following JARs:
 
-* target/groupdocs-signature-cloud-18.8.jar
+* target/groupdocs-signature-cloud-19.5.jar
 * target/lib/*.jar
 
 ## Getting Started
@@ -58,32 +58,37 @@ Then manually install the following JARs:
 Please follow the [installation](#installation) instruction and execute the following Java code:
 
 ```java
-
 import com.groupdocs.cloud.signature.client.*;
 import com.groupdocs.cloud.signature.model.*;
+import com.groupdocs.cloud.signature.model.requests.*;
 import com.groupdocs.cloud.signature.api.SignatureApi;
 
-import java.io.File;
 import java.util.*;
 
-public class SignatureApiExample {
+public class ApiExample {
 
     public static void main(String[] args) {
         //TODO: Get your AppSID and AppKey at https://dashboard.groupdocs.cloud (free registration is required).
         String appSid = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX";
         String appKey = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
 
-        SignatureApi apiInstance = new SignatureApi(appSid, appKey);
+        Configuration configuration = new Configuration(appSid, appKey);
+        
+        SignatureApi signatureApi = new SignatureApi(configuration);
+
         try {
-            BarcodeCollection result = apiInstance.getBarcodes();
-            System.out.println(result);
+            GetSupportedFormatTypesRequest request = new GetSupportedFormatTypesRequest();
+            List<SupportedFormat> response = signatureApi.getSupportedFormatTypes(request);
+            
+            for (SupportedFormat format : response) {
+                System.out.println(format.getSourceFormat());
+            }
         } catch (ApiException e) {
-            System.err.println("Exception when calling SignatureApi#getBarcodes");
+            System.err.println("Exception when calling FileApi#copyFile");
             e.printStackTrace();
         }
     }
 }
-
 ```
 
 ## Licensing

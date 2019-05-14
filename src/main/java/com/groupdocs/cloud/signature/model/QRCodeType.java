@@ -1,7 +1,7 @@
 /**
  * --------------------------------------------------------------------------------------------------------------------
  * <copyright company="Aspose Pty Ltd" file="QRCodeType.java">
- *   Copyright (c) 2003-2018 Aspose Pty Ltd
+ *   Copyright (c) 2003-2019 Aspose Pty Ltd
  * </copyright>
  * <summary>
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -38,9 +38,9 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
- * Describes QRCode type.
+ * Describes QR-code type
  */
-@ApiModel(description = "Describes QRCode type.")
+@ApiModel(description = "Describes QR-code type")
 public class QRCodeType {
   @SerializedName("name")
   private String name = null;
@@ -51,10 +51,10 @@ public class QRCodeType {
   }
 
    /**
-   * QRCode Type Name
+   * QR-code type name
    * @return name
   **/
-  @ApiModelProperty(value = "QRCode Type Name")
+  @ApiModelProperty(value = "QR-code type name")
   public String getName() {
     return name;
   }

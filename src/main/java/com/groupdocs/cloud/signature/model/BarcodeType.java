@@ -1,7 +1,7 @@
 /**
  * --------------------------------------------------------------------------------------------------------------------
  * <copyright company="Aspose Pty Ltd" file="BarcodeType.java">
- *   Copyright (c) 2003-2018 Aspose Pty Ltd
+ *   Copyright (c) 2003-2019 Aspose Pty Ltd
  * </copyright>
  * <summary>
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -38,9 +38,9 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
- * Describes Barcode type.
+ * Describes Barcode type
  */
-@ApiModel(description = "Describes Barcode type.")
+@ApiModel(description = "Describes Barcode type")
 public class BarcodeType {
   @SerializedName("name")
   private String name = null;
@@ -51,10 +51,10 @@ public class BarcodeType {
   }
 
    /**
-   * Barcode Type Name
+   * Barcode type name
    * @return name
   **/
-  @ApiModelProperty(value = "Barcode Type Name")
+  @ApiModelProperty(value = "Barcode type name")
   public String getName() {
     return name;
   }

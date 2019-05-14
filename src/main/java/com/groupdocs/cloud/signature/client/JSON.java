@@ -1,7 +1,7 @@
 /**
  * --------------------------------------------------------------------------------------------------------------------
  * <copyright company="Aspose Pty Ltd" file="JSON.java">
- *   Copyright (c) 2003-2018 Aspose Pty Ltd
+ *   Copyright (c) 2003-2019 Aspose Pty Ltd
  * </copyright>
  * <summary>
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -47,6 +47,8 @@ import java.text.ParseException;
 import java.text.ParsePosition;
 import java.util.Date;
 
+import com.groupdocs.cloud.signature.model.Signature;
+
 public class JSON {
     private Gson gson;
     private boolean isLenientOnJson = false;
@@ -54,6 +56,7 @@ public class JSON {
     private SqlDateTypeAdapter sqlDateTypeAdapter = new SqlDateTypeAdapter();
     private OffsetDateTimeTypeAdapter offsetDateTimeTypeAdapter = new OffsetDateTimeTypeAdapter();
     private LocalDateTypeAdapter localDateTypeAdapter = new LocalDateTypeAdapter();
+    private SignatureDeserializer signatureDeserializer;
 
     public static GsonBuilder createGson() {
         GsonFireBuilder fireBuilder = new GsonFireBuilder();
@@ -61,12 +64,15 @@ public class JSON {
     }
 
     public JSON() {
-        gson = createGson()
+        GsonBuilder builder = createGson()
             .registerTypeAdapter(Date.class, dateTypeAdapter)
             .registerTypeAdapter(java.sql.Date.class, sqlDateTypeAdapter)
             .registerTypeAdapter(OffsetDateTime.class, offsetDateTimeTypeAdapter)
-            .registerTypeAdapter(LocalDate.class, localDateTypeAdapter)
-            .create();
+            .registerTypeAdapter(LocalDate.class, localDateTypeAdapter);
+        signatureDeserializer = new SignatureDeserializer(builder.create());
+        gson = builder
+                .registerTypeAdapter(Signature.class, signatureDeserializer)
+                .create();
     }
 
     /**
@@ -168,9 +174,15 @@ public class JSON {
                     return null;
                 default:
                     String date = in.nextString();
+                    if(date.equals("0001-01-01T00:00:00")) {
+                        return OffsetDateTime.MIN;
+                    }
                     if (date.endsWith("+0000")) {
                         date = date.substring(0, date.length()-5) + "Z";
                     }
+                    if (date.length() == 19) {
+                        date = date + "Z";
+                    }                      
                     return OffsetDateTime.parse(date, formatter);
             }
         }

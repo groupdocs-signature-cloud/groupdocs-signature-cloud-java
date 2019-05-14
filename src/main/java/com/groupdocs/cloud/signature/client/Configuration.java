@@ -1,7 +1,7 @@
 /**
  * --------------------------------------------------------------------------------------------------------------------
  * <copyright company="Aspose Pty Ltd" file="Configuration.java">
- *   Copyright (c) 2003-2018 Aspose Pty Ltd
+ *   Copyright (c) 2003-2019 Aspose Pty Ltd
  * </copyright>
  * <summary>
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -34,9 +34,11 @@ public class Configuration {
 
     private String appKey = null;
 
-    private String basePath = "https://localhost/v1";
+    private String apiVersion = "/v2.0";
 
-    private String contextPath = "/v1";
+    private String apiBaseUrl = "https://api.groupdocs.cloud";
+
+    private int timeout = 60 * 1000;
 
     /**
      * Constructor for Configuration
@@ -49,7 +51,7 @@ public class Configuration {
     }
 
     /**
-     * Application identifier (App SID)
+     * Gets Application identifier (App SID)
      *
      * @return Application identifier (App SID)
      */
@@ -57,12 +59,17 @@ public class Configuration {
       return appSid;
     }
 
+    /**
+     * Sets application identifier (App SID)
+     *
+     * @param appSid Application identifier (App SID)
+     */
     public void setAppSid(String appSid) {
       this.appSid = appSid;
     }
 
     /**
-     * Application private key (App Key)
+     * Gets Application private key (App Key)
      *
      * @return Application private key (App Key)
      */
@@ -70,44 +77,57 @@ public class Configuration {
       return appKey;
     }
 
+    /**
+     * Sets application private key (App Key)
+     *
+     * @param appKey Application private key (App Key)
+     */
     public void setAppKey(String appKey) {
       this.appKey = appKey;
     }
 
     /**
-     * Get base path of the URL (e.g https://localhost/v1)
+     * Gets API base URL, default value is https://api.groupdocs.cloud
      *
-     * @return Base path
+     * @return API base URL
      */
-    public String getBasePath() {
-        return basePath;
+    public String getApiBaseUrl() {
+        return apiBaseUrl;
     }
 
     /**
-     * Set base path
+     * Sets API base URL
      *
-     * @param basePath Base path of the URL (e.g https://localhost/v1)
+     * @param apiBaseUrl API base URL
      */
-    public void setBasePath(String basePath) {
-        this.basePath = basePath;
+    public void setApiBaseUrl(String apiBaseUrl) {
+        this.apiBaseUrl = apiBaseUrl;
     }
 
     /**
-     * Get context path of the URL (e.g /v1)
+     * Gets connection timeout in milliseconds, default value is 60 * 1000 (60 seconds)
      *
-     * @return Context path
+     * @return Timeout in milliseconds 
      */
-    public String getContextPath() {
-        return contextPath;
+    public int getTimeout() {
+        return timeout;
     }
 
     /**
-     * Set context path
+     * Sets connection timeout in milliseconds, default value is 60 * 1000 (60 seconds)
      *
-     * @param contextPath Context path of the URL (e.g /v1)
+     * @param timeout Timeout in milliseconds 
      */
-    public void setContextPath(String contextPath) {
-        this.basePath = this.basePath.replace(this.contextPath, contextPath);
-        this.contextPath = contextPath;
+    public void setTimeout(int timeout) {
+        this.timeout = timeout;
+    }
+
+    /**
+     * Gets Server URL e.g. https://api.groupdocs.cloud/v2.0
+     *
+     * @return Server URL
+     */
+    protected String getServerUrl(){
+        return apiBaseUrl + apiVersion;
     }
 }

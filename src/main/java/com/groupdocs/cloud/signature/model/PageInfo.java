@@ -1,7 +1,7 @@
 /**
  * --------------------------------------------------------------------------------------------------------------------
  * <copyright company="Aspose Pty Ltd" file="PageInfo.java">
- *   Copyright (c) 2003-2018 Aspose Pty Ltd
+ *   Copyright (c) 2003-2019 Aspose Pty Ltd
  * </copyright>
  * <summary>
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -38,9 +38,9 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 
 /**
- * Page information.
+ * Page information
  */
-@ApiModel(description = "Page information.")
+@ApiModel(description = "Page information")
 public class PageInfo {
   @SerializedName("number")
   private Integer number = null;
@@ -66,10 +66,10 @@ public class PageInfo {
   }
 
    /**
-   * Page number.
+   * Page number
    * @return number
   **/
-  @ApiModelProperty(required = true, value = "Page number.")
+  @ApiModelProperty(required = true, value = "Page number")
   public Integer getNumber() {
     return number;
   }
@@ -84,10 +84,10 @@ public class PageInfo {
   }
 
    /**
-   * Page name.
+   * Page name
    * @return name
   **/
-  @ApiModelProperty(value = "Page name.")
+  @ApiModelProperty(value = "Page name")
   public String getName() {
     return name;
   }
@@ -102,10 +102,10 @@ public class PageInfo {
   }
 
    /**
-   * Page width.
+   * Page width
    * @return width
   **/
-  @ApiModelProperty(required = true, value = "Page width.")
+  @ApiModelProperty(required = true, value = "Page width")
   public Integer getWidth() {
     return width;
   }
@@ -120,10 +120,10 @@ public class PageInfo {
   }
 
    /**
-   * Page height.
+   * Page height
    * @return height
   **/
-  @ApiModelProperty(required = true, value = "Page height.")
+  @ApiModelProperty(required = true, value = "Page height")
   public Integer getHeight() {
     return height;
   }
@@ -138,10 +138,10 @@ public class PageInfo {
   }
 
    /**
-   * Page angle.
+   * Page angle
    * @return angle
   **/
-  @ApiModelProperty(required = true, value = "Page angle.")
+  @ApiModelProperty(required = true, value = "Page angle")
   public Integer getAngle() {
     return angle;
   }
@@ -156,11 +156,11 @@ public class PageInfo {
   }
 
    /**
-   * Page visibility.
+   * Page visibility
    * @return visible
   **/
-  @ApiModelProperty(required = true, value = "Page visibility.")
-  public Boolean isVisible() {
+  @ApiModelProperty(required = true, value = "Page visibility")
+  public Boolean getVisible() {
     return visible;
   }
 
