@@ -60,8 +60,7 @@ Please follow the [installation](#installation) instruction and execute the foll
 ```java
 import com.groupdocs.cloud.signature.client.*;
 import com.groupdocs.cloud.signature.model.*;
-import com.groupdocs.cloud.signature.model.requests.*;
-import com.groupdocs.cloud.signature.api.SignatureApi;
+import com.groupdocs.cloud.signature.api.InfoApi;
 
 import java.util.*;
 
@@ -74,17 +73,16 @@ public class ApiExample {
 
         Configuration configuration = new Configuration(appSid, appKey);
         
-        SignatureApi signatureApi = new SignatureApi(configuration);
+        InfoApi infoApi = new InfoApi(configuration);
 
-        try {
-            GetSupportedFormatTypesRequest request = new GetSupportedFormatTypesRequest();
-            List<SupportedFormat> response = signatureApi.getSupportedFormatTypes(request);
+        try {            
+            FormatsResult response = infoApi.getSupportedFileFormats();
             
-            for (SupportedFormat format : response) {
-                System.out.println(format.getSourceFormat());
+            for (Format format : response.getFormats()) {
+                System.out.println(format.getFileFormat());
             }
         } catch (ApiException e) {
-            System.err.println("Exception when calling FileApi#copyFile");
+            System.err.println("Exception");
             e.printStackTrace();
         }
     }
