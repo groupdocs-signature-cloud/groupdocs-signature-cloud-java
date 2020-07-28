@@ -37,7 +37,7 @@ Add following repository and dependency to your project's POM
 <dependency>
     <groupId>com.groupdocs</groupId>
     <artifactId>groupdocs-signature-cloud</artifactId>
-    <version>19.5</version>
+    <version>20.7</version>
     <scope>compile</scope>
 </dependency>
 ```
@@ -50,7 +50,7 @@ At first generate the JAR by executing:
 
 Then manually install the following JARs:
 
-* target/groupdocs-signature-cloud-19.5.jar
+* target/groupdocs-signature-cloud-20.7.jar
 * target/lib/*.jar
 
 ## Getting Started
@@ -95,7 +95,7 @@ All GroupDocs.Signature Cloud SDKs are licensed under [MIT License](LICENSE).
 ## Resources
 + [**Website**](https://www.groupdocs.cloud)
 + [**Product Home**](https://products.groupdocs.cloud/signature)
-+ [**Documentation**](https://docs.groupdocs.cloud/display/signaturecloud/Home)
++ [**Documentation**](https://wiki.groupdocs.cloud/display/signaturecloud/Home)
 + [**Free Support Forum**](https://forum.groupdocs.cloud/c/signature)
 + [**Blog**](https://blog.groupdocs.cloud/category/signature)
 
