@@ -1,4 +1,4 @@
-![](https://img.shields.io/badge/api-v2.0-lightgrey) [![GitHub license](https://img.shields.io/github/license/groupdocs-signature-cloud/groupdocs-signature-cloud-java)](https://github.com/groupdocs-signature-cloud/groupdocs-signature-cloud-java/blob/master/LICENSE) 
+![](https://img.shields.io/badge/api-v2.0-lightgrey) [![GitHub license](https://img.shields.io/github/license/groupdocs-signature-cloud/groupdocs-signature-cloud-java)](https://github.com/groupdocs-signature-cloud/groupdocs-signature-cloud-java/blob/master/LICENSE)
 
 # Java SDK to Document Signature REST API
 
@@ -20,11 +20,11 @@ Check out the [Developer's Guide](https://docs.groupdocs.cloud/signature/develop
 
 ## Supported Signature Types
 
-- **Text Signature** 
-- **Image Signature** 
-- **Barcode Signature** 
+- **Text Signature**
+- **Image Signature**
+- **Barcode Signature**
 - **QR-Code Signature**
-- **Digital Signature** 
+- **Digital Signature**
 - **Stamp Signature**
 
 ## Microsoft Office Formats
@@ -93,34 +93,18 @@ Generate the JAR by executing `mvn package`, then manually install the following
 Please follow the [installation](#installation) instruction and execute the following Java code.
 
 ```java
-import com.groupdocs.cloud.signature.client.*;
-import com.groupdocs.cloud.signature.model.*;
-import com.groupdocs.cloud.signature.api.InfoApi;
+// Get Client Id and Client Secret from https://dashboard.groupdocs.cloud
+String MyClientId = "";
+String MyClientSecret = "";
 
-import java.util.*;
+// Create instance of the API
+Configuration configuration = new Configuration(MyClientId, MyClientSecret);
+InfoApi infoApi = new InfoApi(configuration);
 
-public class ApiExample {
+FormatsResult response = infoApi.getSupportedFileFormats();
 
-    public static void main(String[] args) {
-        //TODO: Get your AppSID and AppKey at https://dashboard.groupdocs.cloud (free registration is required).
-        String appSid = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX";
-        String appKey = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
-
-        Configuration configuration = new Configuration(appSid, appKey);
-        
-        InfoApi infoApi = new InfoApi(configuration);
-
-        try {            
-            FormatsResult response = infoApi.getSupportedFileFormats();
-            
-            for (Format format : response.getFormats()) {
-                System.out.println(format.getFileFormat());
-            }
-        } catch (ApiException e) {
-            System.err.println("Exception");
-            e.printStackTrace();
-        }
-    }
+for (Format format : response.getFormats()) {
+	System.out.println(format.getFileFormat());
 }
 ```
 
@@ -129,6 +113,6 @@ public class ApiExample {
 | .NET | Java | PHP | Python | Ruby | Node.js |
 |---|---|---|---|---|---|
 | [GitHub](https://github.com/groupdocs-signature-cloud/groupdocs-signature-cloud-dotnet) | [GitHub](https://github.com/groupdocs-signature-cloud/groupdocs-signature-cloud-java) | [GitHub](https://github.com/groupdocs-signature-cloud/groupdocs-signature-cloud-php) | [GitHub](https://github.com/groupdocs-signature-cloud/groupdocs-signature-cloud-python) | [GitHub](https://github.com/groupdocs-signature-cloud/groupdocs-signature-cloud-ruby)  | [GitHub](https://github.com/groupdocs-signature-cloud/groupdocs-signature-cloud-node) |
-| [NuGet](https://www.nuget.org/packages/GroupDocs.Signature-Cloud/) | [Maven](https://repository.groupdocs.cloud/webapp/#/artifacts/browse/tree/General/repo/com/groupdocs/groupdocs-signature-cloud) | [Composer](https://packagist.org/packages/groupdocscloud/groupdocs-signature-cloud) | [PIP](https://pypi.org/project/groupdocs-signature-cloud/) | [GEM](https://rubygems.org/gems/groupdocs_signature_cloud)  | [NPM](https://www.npmjs.com/package/groupdocs-signature-cloud) | 
+| [NuGet](https://www.nuget.org/packages/GroupDocs.Signature-Cloud/) | [Maven](https://repository.groupdocs.cloud/webapp/#/artifacts/browse/tree/General/repo/com/groupdocs/groupdocs-signature-cloud) | [Composer](https://packagist.org/packages/groupdocscloud/groupdocs-signature-cloud) | [PIP](https://pypi.org/project/groupdocs-signature-cloud/) | [GEM](https://rubygems.org/gems/groupdocs_signature_cloud)  | [NPM](https://www.npmjs.com/package/groupdocs-signature-cloud) |
 
 [Home](https://www.groupdocs.cloud/) | [Product Page](https://products.groupdocs.cloud/signature/java) | [Documentation](https://docs.groupdocs.cloud/signature/) | [Live Demo](https://products.groupdocs.app/signature/total) | [API Reference](https://apireference.groupdocs.cloud/signature/) | [Code Samples](https://github.com/groupdocs-signature-cloud/groupdocs-signature-cloud-java-samples) | [Blog](https://blog.groupdocs.cloud/category/signature/) | [Free Support](https://forum.groupdocs.cloud/c/signature) | [Free Trial](https://dashboard.groupdocs.cloud)
