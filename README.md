@@ -1,27 +1,14 @@
 # GroupDocs.Signature Cloud SDK for Java
+
 This repository contains GroupDocs.Signature Cloud SDK for Java source code. This SDK allows you to work with GroupDocs.Signature Cloud REST APIs in your Java applications.
 
 ## Requirements
 
-Building the API client library requires [Maven](https://maven.apache.org/) to be installed.
+* Java SE Development Kit 8
 
 ## Installation
 
-To install the API client library to your local Maven repository, simply execute:
-
-```shell
-mvn install
-```
-
-To deploy it to a remote Maven repository instead, configure the settings of the repository and execute:
-
-```shell
-mvn deploy
-```
-
-Refer to the [official documentation](https://maven.apache.org/plugins/maven-deploy-plugin/usage.html) for more information.
-
-### Maven users
+### Maven
 
 Add following repository and dependency to your project's POM
 
@@ -37,25 +24,37 @@ Add following repository and dependency to your project's POM
 <dependency>
     <groupId>com.groupdocs</groupId>
     <artifactId>groupdocs-signature-cloud</artifactId>
-    <version>21.5</version>
+    <version>21.11</version>
     <scope>compile</scope>
 </dependency>
 ```
 
-### Others
+### Gradle
 
-At first generate the JAR by executing:
+Add following repository and dependency to your build.gradle:
 
-    mvn package
+```javascript
+repositories {
+    maven {
+        url "https://repository.groupdocs.cloud/repo/"
+    }
+}
 
-Then manually install the following JARs:
-
-* target/groupdocs-signature-cloud-21.5.jar
-* target/lib/*.jar
+...
+dependencies {
+    ...
+    implementation 'com.groupdocs:groupdocs-signature-cloud:21.11'
+}
+```
 
 ## Getting Started
 
-Please follow the [installation](#installation) instruction and execute the following Java code:
+* Please follow the [installation](#installation) instruction
+* Get your AppSID and AppKey at [Dashboard](https://dashboard.groupdocs.cloud) and use them in your code
+* Build and execute
+* Explore more samples at [GitHub](https://github.com/groupdocs-signature-cloud/groupdocs-signature-cloud-java-samples)
+
+Example:
 
 ```java
 import com.groupdocs.cloud.signature.client.*;
@@ -75,29 +74,47 @@ public class ApiExample {
         
         InfoApi infoApi = new InfoApi(configuration);
 
-        try {            
+        try {
             FormatsResult response = infoApi.getSupportedFileFormats();
-            
             for (Format format : response.getFormats()) {
                 System.out.println(format.getFileFormat());
             }
         } catch (ApiException e) {
-            System.err.println("Exception");
+            System.err.println("Failed to get supported file formats");
             e.printStackTrace();
         }
     }
 }
 ```
 
+## Manual build and installation from sources
+
+Building the API client library requires [Maven](https://maven.apache.org/) to be installed.
+Refer to the [official documentation](https://maven.apache.org/plugins/maven-deploy-plugin/usage.html) for more information.
+
+At first generate the JAR by executing following command in "/src" working directory:
+
+```shell
+mvn package -D maven.test.skip=true
+```
+
+Then manually install the following JARs:
+
+* target/groupdocs-signature-cloud-21.11.jar
+* target/lib/*.jar
+
 ## Licensing
+
 All GroupDocs.Signature Cloud SDKs are licensed under [MIT License](LICENSE).
 
 ## Resources
-+ [**Website**](https://www.groupdocs.cloud)
-+ [**Product Home**](https://products.groupdocs.cloud/signature)
-+ [**Documentation**](https://wiki.groupdocs.cloud/display/signaturecloud/Home)
-+ [**Free Support Forum**](https://forum.groupdocs.cloud/c/signature)
-+ [**Blog**](https://blog.groupdocs.cloud/category/signature)
+
+* [**Website**](https://www.groupdocs.cloud)
+* [**Product Home**](https://products.groupdocs.cloud/signature)
+* [**Documentation**](https://docs.groupdocs.cloud/signature/)
+* [**Free Support Forum**](https://forum.groupdocs.cloud/c/signature)
+* [**Blog**](https://blog.groupdocs.cloud/category/signature)
 
 ## Contact Us
+
 Your feedback is very important to us. Please feel free to contact us using our [Support Forums](https://forum.groupdocs.cloud/c/signature).
