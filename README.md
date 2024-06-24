@@ -24,7 +24,7 @@ Add following repository and dependency to your project's POM
 <dependency>
     <groupId>com.groupdocs</groupId>
     <artifactId>groupdocs-signature-cloud</artifactId>
-    <version>24.4</version>
+    <version>24.6</version>
     <scope>compile</scope>
 </dependency>
 ```
@@ -43,7 +43,7 @@ repositories {
 ...
 dependencies {
     ...
-    implementation 'com.groupdocs:groupdocs-signature-cloud:24.4'
+    implementation 'com.groupdocs:groupdocs-signature-cloud:24.6'
 }
 ```
 
@@ -100,7 +100,7 @@ mvn package -D maven.test.skip=true
 
 Then manually install the following JARs:
 
-* target/groupdocs-signature-cloud-24.4.jar
+* target/groupdocs-signature-cloud-24.6.jar
 * target/lib/*.jar
 
 ## Licensing
